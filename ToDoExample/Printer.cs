@@ -1,3 +1,5 @@
+using System.Text.RegularExpressions;
+
 namespace ToDoExample;
 public static class Printer
 {
@@ -17,7 +19,7 @@ public static class Printer
 
     public static void PrintMainMenu()
     {
-        Console.WriteLine("1. Create Task   2. Complete Task   3. Exit Program\n");
+        WriteLineColor("[1]. Create [N]ew Task   [2]. [C]omplete Task   [3]. [E]xit Program\n", ConsoleColor.Yellow);
     }
 
     public static void PrintList(List<Task> list)
@@ -44,5 +46,27 @@ public static class Printer
             }
         }
         Console.WriteLine("");
+    }
+
+    // usage: WriteLineColor("This is my [message] with inline [color] changes.", ConsoleColor.Yellow);
+    static void WriteLineColor(string message, ConsoleColor color)
+    {
+        var pieces = Regex.Split(message, @"(\[[^\]]*\])");
+
+        for (int i = 0; i < pieces.Length; i++)
+        {
+            string piece = pieces[i];
+
+            if (piece.StartsWith("[") && piece.EndsWith("]"))
+            {
+                Console.ForegroundColor = color;
+                piece = piece.Substring(1, piece.Length - 2);
+            }
+
+            Console.Write(piece);
+            Console.ResetColor();
+        }
+
+        Console.WriteLine();
     }
 }
