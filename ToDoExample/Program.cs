@@ -54,7 +54,26 @@ class Program
 
     static void CompleteTask()
     {
+        Console.Write("What task to complete: ");
 
+        int index;
+
+        while (true)
+        {
+            if (Int32.TryParse(Console.ReadLine(), out index))
+                break;
+            else
+                Console.WriteLine("\nplease enter a number");
+        }
+
+        if (index <= 0 || index > toDoList.Count)
+        {
+            Console.WriteLine("number is out of bounds");
+        }
+        else
+        {
+            toDoList[index - 1].MarkComplete();
+        }
     }
 
 }
