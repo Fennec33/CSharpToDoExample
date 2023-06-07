@@ -27,23 +27,15 @@ public static class Printer
         if (list.Count == 0)
         {
             Console.WriteLine($"\t No Tasks");
+            return;
         }
 
         int i = 1;
         foreach (Task task in list)
         {
-            Console.Write($"\t{i++}. {task.Name}, {task.Duration}");
+            string complete = task.Complete ? "(complete)" : "";
 
-            if (task.Complete)
-            {
-                Console.ForegroundColor = ConsoleColor.Green;
-                Console.WriteLine(" (complete)");
-                Console.ResetColor();
-            }
-            else
-            {
-                Console.WriteLine("");
-            }
+            WriteLineColor($"\t{i++}. {task.Name}, {task.Duration} [{complete}]", ConsoleColor.Green);
         }
         Console.WriteLine("");
     }
