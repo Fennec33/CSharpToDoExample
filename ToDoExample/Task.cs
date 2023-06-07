@@ -24,8 +24,8 @@ public class Task
         return $"{Name},{Duration},{Complete}";
     }
 
-    public void SetName(string theName) => Name = theName;
-    public void SetDuration(string theDuration) => Duration = theDuration;
+    public void SetName(string name) => Name = name;
+    public void SetDuration(string duration) => Duration = duration;
     public void MarkComplete() => Complete = true;
     public void MarkComplete(bool status) => Complete = status;
-}   
+}

@@ -22,7 +22,7 @@ public static class Printer
         WriteLineColor("[1]. Create [N]ew Task   [2]. [C]omplete Task   [3]. [E]xit Program\n", ConsoleColor.Yellow);
     }
 
-    public static void PrintList(List<Task> list)
+    public static void PrintList(List<Task> list, int selectedIndex)
     {
         if (list.Count == 0)
         {
@@ -33,9 +33,18 @@ public static class Printer
         int i = 1;
         foreach (Task task in list)
         {
+            if (i - 1 == selectedIndex)
+            {
+                Console.ForegroundColor = ConsoleColor.Yellow;
+                Console.Write("\t> ");
+                Console.ResetColor();
+            }
+            else
+            {
+                Console.Write("\t");
+            }
             string complete = task.Complete ? "(complete)" : "";
-
-            WriteLineColor($"\t{i++}. {task.Name}, {task.Duration} [{complete}]", ConsoleColor.Green);
+            WriteLineColor($"{i++}. {task.Name}, {task.Duration} [{complete}]", ConsoleColor.Green);
         }
         Console.WriteLine("");
     }

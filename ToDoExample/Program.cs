@@ -2,22 +2,28 @@
 class Program
 {
     private static List<Task> toDoList = DataAccessor.loadDataFromFile();
+    private static int selector = 0;
     static void Main(string[] args)
     {
+        Console.CursorVisible = false;
         bool running = true;
         while (running)
         {
             Console.Clear();
             Printer.PrintTitle();
-            Printer.PrintList(toDoList);
             Printer.PrintMainMenu();
+            Printer.PrintList(toDoList, selector);
 
-            Console.Write("> ");
-            char command = Console.ReadKey().KeyChar;
-            Console.WriteLine("\n");
+            char command = Console.ReadKey(true).KeyChar;
 
             switch (command)
             {
+                case 'w':
+                    SelectorUp();
+                    break;
+                case 's':
+                    SelectorDown();
+                    break;
                 case '1':
                 case 'n':
                 case 'N':
@@ -32,50 +38,33 @@ class Program
                 case 'e':
                 case 'E':
                     Console.WriteLine("Goodbye");
+                    Console.CursorVisible = true;
                     running = false;
                     break;
                 default:
                     Console.WriteLine("invalid option");
                     break;
             }
-            Console.Write("\nAny key to continue");
-            Console.ReadKey(false);
+            //Console.Write("\nAny key to continue");
+            //Console.ReadKey(false);
         }
 
         DataAccessor.SaveEmployeeDataToFile(toDoList);
     }
 
+    static void SelectorUp() => selector = selector == 0 ? toDoList.Count - 1 : selector - 1;
+    static void SelectorDown() => selector = selector == toDoList.Count - 1 ? 0 : selector + 1;
+
     static void CreateNewTask()
     {
+        Console.CursorVisible = true;
         Console.Write("Enter task: ");
         string taskName = Console.ReadLine() ?? "null";
         Console.Write("Enter task duration: ");
         string taskDuration = Console.ReadLine() ?? "null";
         toDoList.Add(new Task(taskName, taskDuration));
+        Console.CursorVisible = false;
     }
 
-    static void CompleteTask()
-    {
-        Console.Write("What task to complete: ");
-
-        int index;
-
-        while (true)
-        {
-            if (Int32.TryParse(Console.ReadLine(), out index))
-                break;
-            else
-                Console.WriteLine("\nplease enter a number");
-        }
-
-        if (index <= 0 || index > toDoList.Count)
-        {
-            Console.WriteLine("number is out of bounds");
-        }
-        else
-        {
-            toDoList[index - 1].MarkComplete();
-        }
-    }
-
+    static void CompleteTask() => toDoList[selector].MarkComplete();
 }
