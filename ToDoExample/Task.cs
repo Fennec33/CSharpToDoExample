@@ -1,3 +1,4 @@
+namespace ToDoExample;
 public class Task
 {
     public string Name { get; private set; }
