@@ -19,7 +19,7 @@ public static class Printer
 
     public static void PrintMainMenu()
     {
-        WriteColor("[1]. Create [N]ew Task   [2]. [C]omplete Task   [3]. [E]xit Program\n\n", ConsoleColor.Yellow);
+        WriteLineColor("[1]. Create [N]ew Task   [2]. [C]omplete Task   [3]. [E]xit Program\n", ConsoleColor.Yellow);
     }
 
     public static void PrintList(List<Task> list)
@@ -49,6 +49,7 @@ public static class Printer
     }
 
     // usage: WriteColor("This is my [message] with inline [color] changes.", ConsoleColor.Yellow);
+    static void WriteLineColor(string message, ConsoleColor color) => WriteColor(message + "\n", color);
     static void WriteColor(string message, ConsoleColor color)
     {
         var pieces = Regex.Split(message, @"(\[[^\]]*\])");
