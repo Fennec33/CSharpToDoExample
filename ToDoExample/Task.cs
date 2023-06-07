@@ -5,11 +5,23 @@ public class Task
     public string Duration { get; private set; }
     public bool Complete { get; private set; }
 
-    public Task(string myName, string myDuration)
+    public Task(string name, string duration)
     {
-        Name = myName;
-        Duration = myDuration;
+        Name = name;
+        Duration = duration;
         Complete = false;
+    }
+
+    public Task(string name, string duration, bool complete)
+    {
+        Name = name;
+        Duration = duration;
+        Complete = complete;
+    }
+
+    public override string ToString()
+    {
+        return $"{Name},{Duration},{Complete}";
     }
 
     public void SetName(string theName) => Name = theName;

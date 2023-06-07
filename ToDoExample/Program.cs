@@ -1,7 +1,7 @@
 ﻿namespace ToDoExample;
 class Program
 {
-    private static List<Task> toDoList = new List<Task>();
+    private static List<Task> toDoList = DataAccessor.loadDataFromFile();
     static void Main(string[] args)
     {
         bool running = true;
@@ -41,6 +41,8 @@ class Program
             Console.Write("\nAny key to continue");
             Console.ReadKey(false);
         }
+
+        DataAccessor.SaveEmployeeDataToFile(toDoList);
     }
 
     static void CreateNewTask()
