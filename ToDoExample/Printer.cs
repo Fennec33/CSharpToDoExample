@@ -14,12 +14,12 @@ public static class Printer
         Console.WriteLine(@"  88b   88b  d88    88b  ,88b 88b  d88");
         Console.WriteLine(@"  `?8b  `?8888P'    `?88P'`88b`?8888P'");
         Console.WriteLine(@"");
-        Console.ForegroundColor = ConsoleColor.White;
+        Console.ResetColor();
     }
 
     public static void PrintMainMenu()
     {
-        WriteLineColor("[1]. Create [N]ew Task   [2]. [C]omplete Task   [3]. [E]xit Program\n", ConsoleColor.Yellow);
+        WriteColor("[1]. Create [N]ew Task   [2]. [C]omplete Task   [3]. [E]xit Program\n\n", ConsoleColor.Yellow);
     }
 
     public static void PrintList(List<Task> list)
@@ -38,7 +38,7 @@ public static class Printer
             {
                 Console.ForegroundColor = ConsoleColor.Green;
                 Console.WriteLine(" (complete)");
-                Console.ForegroundColor = ConsoleColor.White;
+                Console.ResetColor();
             }
             else
             {
@@ -48,8 +48,8 @@ public static class Printer
         Console.WriteLine("");
     }
 
-    // usage: WriteLineColor("This is my [message] with inline [color] changes.", ConsoleColor.Yellow);
-    static void WriteLineColor(string message, ConsoleColor color)
+    // usage: WriteColor("This is my [message] with inline [color] changes.", ConsoleColor.Yellow);
+    static void WriteColor(string message, ConsoleColor color)
     {
         var pieces = Regex.Split(message, @"(\[[^\]]*\])");
 
@@ -66,7 +66,5 @@ public static class Printer
             Console.Write(piece);
             Console.ResetColor();
         }
-
-        Console.WriteLine();
     }
 }
